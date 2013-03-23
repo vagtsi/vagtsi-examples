@@ -1,14 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.vagtsi.examples.rap.hellovirgo</groupId>
+	<groupId>de.vagtsi.examples</groupId>
 	<artifactId>de.vagtsi.examples.rap.hellovirgo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
+	<description>Example of a simple/minimal RAP application to be deployed on
+	    a OSGi server (e.g. virgo)</description>
 	<properties>
  		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
  	</properties>
 	<dependencies>
+	    <!-- RAP RWT library
+	    	 note for virgo: has to deployed into reporitory/usr -->
 		<dependency>
 			<groupId>org.eclipse.rap</groupId>
 			<artifactId>org.eclipse.rap.rwt</artifactId>
@@ -32,6 +36,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	<developers>
+	    <developer>
+	        <name>Jens Vagts</name>
+	        <url>http://vagtsi.de</url>
+	        <timezone>+1</timezone>
+	    </developer>
+	</developers>
 	<prerequisites>
 		<maven>3.0</maven>
 	</prerequisites>
