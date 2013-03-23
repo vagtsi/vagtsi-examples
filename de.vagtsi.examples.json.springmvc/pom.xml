@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.vagtsi.examples</groupId>
+	<artifactId>de.vagtsi.examples.json.springmvc</artifactId>
+	<version>0.0.1</version>
+	<packaging>war</packaging>
+	<description>Example of a service implementation supporting JSON protocol via SpringMVC and jackson
+	    runnable on a OSGi servlet container (e.g. virgo tomcat server) </description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- versions -->
+		<spring.version>3.1.0.RELEASE</spring.version>
+		<jackson.version>1.9.12</jackson.version>
+	</properties>
+	<dependencies>
+		<!-- Jackson JSON Mapper
+			 note for virgo: has to deployed into reporitory/usr -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.core</artifactId>
+			<version>${spring.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.web</artifactId>
+			<version>${spring.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>org.springframework.web.servlet</artifactId>
+			<version>${spring.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- create bundle manifest -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+						<phase>process-classes</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<supportedProjectTypes>
+						<supportedProjectType>jar</supportedProjectType>
+						<supportedProjectType>bundle</supportedProjectType>
+						<supportedProjectType>war</supportedProjectType>
+					</supportedProjectTypes>
+					<instructions>
+						<Bundle-ClassPath>.,WEB-INF/classes,{maven-dependencies}</Bundle-ClassPath>
+						<Import-Package>
+							*,
+							org.eclipse.virgo.web.dm,
+							org.springframework.web.context,
+							org.springframework.web.servlet,
+							org.springframework.web.servlet.config,
+							org.springframework.context.config
+						</Import-Package>
+						<Web-ContextPath>/rest</Web-ContextPath>
+					</instructions>
+				</configuration>
+			</plugin>
+			<!-- package the web archive bundle with generated manifest -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>com.springsource.repository.bundles.release</id>
+			<name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/release</url>
+		</repository>
+		<repository>
+			<id>com.springsource.repository.bundles.external</id>
+			<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+			<url>http://repository.springsource.com/maven/bundles/external</url>
+		</repository>
+	</repositories>
+	<developers>
+		<developer>
+			<name>Jens Vagts</name>
+			<url>http://vagtsi.de</url>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
+</project>
