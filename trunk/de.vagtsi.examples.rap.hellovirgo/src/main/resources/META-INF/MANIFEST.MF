@@ -11,5 +11,5 @@ Import-Package: org.eclipse.rap.rwt.application,org.eclipse.rap.rwt.cl
  ient,org.eclipse.rap.rwt.engine,org.eclipse.swt,org.eclipse.swt.event
  s,org.eclipse.swt.layout,org.eclipse.swt.widgets
 Bundle-SymbolicName: de.vagtsi.examples.rap.hellovirgo
-Web-ContextPath: /hello
+Web-ContextPath: /
 
