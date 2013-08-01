@@ -20,6 +20,9 @@ public class HelloVirgo implements EntryPoint {
 		this.buttonText = buttonText;
 	}
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public int createUI() {
 		Display display = new Display();
 		Shell mainShell = new Shell(display, SWT.TITLE);
