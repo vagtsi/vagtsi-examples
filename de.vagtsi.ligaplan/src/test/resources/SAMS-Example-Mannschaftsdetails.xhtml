@@ -1,0 +1,819 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- base href="https://sams.nvv-online.de/SamsNvv/" -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="Mannschaftsdetails-Dateien/framework.js"
+	type="text/javascript"></script>
+<script src="Mannschaftsdetails-Dateien/ui.js" type="text/javascript"></script>
+<link class="component"
+	href="Mannschaftsdetails-Dateien/eAHbdnRLUujyGdIAFdEEQQ___002.css"
+	rel="stylesheet" type="text/css">
+<link class="component"
+	href="Mannschaftsdetails-Dateien/eAHbdnRLUujyGdIAFdEEQQ___004.css"
+	rel="stylesheet" type="text/css">
+<link class="component"
+	href="Mannschaftsdetails-Dateien/eAHbdnRLUujyGdIAFdEEQQ__.css"
+	rel="stylesheet" type="text/css">
+<script id="org.ajax4jsf.queue_script" type="text/javascript">
+	if (typeof A4J != 'undefined') {
+		if (A4J.AJAX) {
+			with (A4J.AJAX) {
+				if (!EventQueue.getQueue('org.richfaces.queue.global')) {
+					EventQueue.addQueue(new EventQueue(
+							'org.richfaces.queue.global', null, null))
+				}
+				;
+			}
+		}
+	};
+</script>
+<link class="component"
+	href="Mannschaftsdetails-Dateien/eAHbdnRLUujyGdIAFdEEQQ___005.css"
+	rel="stylesheet" type="text/css">
+<link class="component"
+	href="Mannschaftsdetails-Dateien/eAHbdnRLUujyGdIAFdEEQQ___003.css"
+	rel="stylesheet" type="text/css">
+<script type="text/javascript">
+	window.RICH_FACES_EXTENDED_SKINNING_ON = true;
+</script>
+<script src="Mannschaftsdetails-Dateien/3_3_3.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css"
+	href="Mannschaftsdetails-Dateien/sams.css">
+<link rel="stylesheet" type="text/css"
+	href="Mannschaftsdetails-Dateien/ma.css">
+<link rel="stylesheet" type="text/css"
+	href="Mannschaftsdetails-Dateien/popup.css">
+	<!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="css/sams_iefixes.css" />
+	      <link rel="stylesheet" type="text/css" href="css/ma_iefixes.css" />
+	    <![endif]-->
+<title>Mannschaftsdetails</title>
+<link rel="shortcut icon"
+	href="https://sams.nvv-online.de/SamsNvv/images/favicon.ico">
+	<!--?xml version="1.0" encoding="UTF-8"?-->
+</head>
+<body>
+	<form target="" id="samsJsPixelRatioForm" name="samsJsPixelRatioForm"
+		method="post" action="/popup/matchSeries/teamDetails.xhtml">
+		<script id="samsJsPixelRatioForm:j_id7" type="text/javascript">
+			//<![CDATA[
+			updatePixelRatio = function(param1) {
+				A4J.AJAX
+						.Submit(
+								'samsJsPixelRatioForm',
+								null,
+								{
+									'similarityGroupingId' : 'samsJsPixelRatioForm:j_id7',
+									'parameters' : {
+										'param1' : param1,
+										'samsJsPixelRatioForm:j_id7' : 'samsJsPixelRatioForm:j_id7'
+									},
+									'actionUrl' : '/popup/matchSeries/teamDetails.xhtml'
+								})
+			};
+			//]]>
+		</script>
+		<input autocomplete="off" name="samsJsPixelRatioForm"
+			value="samsJsPixelRatioForm" type="hidden"><input
+			autocomplete="off" name="autoScroll" value="" type="hidden">
+		<script type="text/javascript">
+			function clear_samsJsPixelRatioForm() {
+				_clearJSFFormParameters('samsJsPixelRatioForm', '', [
+						'samsJsPixelRatioForm:_link_hidden_',
+						'samsJsPixelRatioForm:j_idcl' ]);
+			}
+			function clearFormHiddenParams_samsJsPixelRatioForm() {
+				clear_samsJsPixelRatioForm();
+			}
+			function clearFormHiddenParams_samsJsPixelRatioForm() {
+				clear_samsJsPixelRatioForm();
+			}
+			clear_samsJsPixelRatioForm();
+		</script>
+		<input name="javax.faces.ViewState" id="javax.faces.ViewState"
+			value="j_id4" autocomplete="off" type="hidden"><input
+			value="popup" name="layout" type="hidden">
+	</form>
+
+	<script type="text/javascript" src="Mannschaftsdetails-Dateien/sams.js"></script>
+	<script type="text/javascript"
+		src="Mannschaftsdetails-Dateien/popupwindow.js"></script>
+	<script type="text/javascript"
+		src="Mannschaftsdetails-Dateien/remote.js"></script>
+	<script type="text/javascript"
+		src="Mannschaftsdetails-Dateien/interface.js"></script>
+
+	<!-- TODO: Remove this when https://issues.jboss.org/browse/RF-9485 is fixed -->
+	<script type="text/javascript"
+		src="Mannschaftsdetails-Dateien/AJAX-Richfaces-3.js"></script>
+
+	<script type="text/javascript">
+		//<![CDATA[
+		// set some values from the application context
+		var messages = new Object();
+		messages.defaultConfirm = "Sind Sie sicher?";
+		messages.route_finder = "Routenplaner";
+
+		// initialize client dpi setting 
+		var dpr = 1.0;
+		if (dpr === null) {
+			// forward setting to identity
+			updatePixelRatio(window.devicePixelRatio ? window.devicePixelRatio
+					: 1);
+		}
+
+		//]]>
+
+		// Poll the server every sessionTimout / 3 seconds to avoid the session timing out while the browser window is open.
+		// ###################### Seam Remoting #################################
+		Seam.Remoting.displayLoadingMessage = function() {
+		};
+		Seam.Remoting.hideLoadingMessage = function() {
+		};
+
+		// ###################### Session timeout alert #################################
+		var sessionChecker = Seam.Component.getInstance("httpSessionChecker");
+		var timeoutMillis = 1800 * 1000 / 3;
+		var sessionTimeoutInterval = null;
+
+		function initSessionTimeout() {
+			sessionTimeoutInterval = setInterval('sessionChecker.keepAlive()',
+					timeoutMillis);
+		}
+
+		function stopSessionTimeoutCheck() {
+			if (sessionTimeoutInterval)
+				clearInterval(sessionTimeoutInterval);
+		}
+
+		function sessionCheckerCallBack() {
+
+		}
+	</script>
+
+
+
+
+	<table class="popupHeader">
+		<tbody>
+			<tr>
+				<td>
+					<h1>Niedersächsischer Volleyball-Verband</h1>
+				</td>
+				<td>
+					<h2>Mannschaftsdetails</h2>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="popupContentContainer">
+		<span id="_viewRoot:status"><span id="_viewRoot:status.start"
+			style="display: none"><div id="j_id17"
+					style="position: fixed; top: 50%; left: 50%; z-index: 10000; border: 3px solid black;">
+					<img src="Mannschaftsdetails-Dateien/ajax-loader-large.gif">
+				</div></span><span id="_viewRoot:status.stop"></span></span>
+
+
+		<div class="content">
+
+			<!-- messages as insert to make them removable -->
+			<span id="j_id20"></span>
+
+			<!-- content -->
+			<div class="samsContentBox " style="">
+				<div class="samsContentBoxHeader">Mannschaft</div>
+				<div class="samsContentBoxContent">
+					<p>
+						<span style="font-weight: bold">MTV Wilstedt</span>
+					</p>
+					<p>Landesliga 3 (Männer)</p>
+					<div style="clear: both; height: 1px;"></div>
+				</div>
+			</div>
+			<div class="samsContentBox " style="">
+				<div class="samsContentBoxHeader">Tabellenverlauf</div>
+				<div class="samsContentBoxContent">
+					<p>
+					<table class="samsDataTable">
+						<tbody>
+
+							<tr>
+								<th>Datum</th>
+								<th>Platz</th>
+								<th>Punkte</th>
+								<th>Satzpunkte</th>
+								<th>Ballpunkte</th>
+							</tr>
+						</tbody>
+					</table>
+					</p>
+					<div style="clear: both; height: 1px;"></div>
+				</div>
+			</div>
+			<div class="samsContentBox " style="">
+				<div class="samsContentBoxHeader">Spielverlauf</div>
+				<div class="samsContentBoxContent">
+					<p>
+					<table class="samsDataTable">
+						<tbody>
+							<tr>
+								<th>Datum</th>
+
+								<th style="width: 15px;">#</th>
+								<th style="width: 15px;">ST</th>
+								<th>Heim</th>
+								<th>Mannschaft 1</th>
+								<th>Mannschaft 2</th>
+								<th>Austragungsort / Ergebnis</th>
+								<th><span id="j_id76:0:j_id107"
+									class="commandIconContainer"><span id="j_id76:0:j_id109"
+										class="toolTipContainer "><span id="j_id76:0:j_id110"
+											class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/messagebox_info.png" alt=""
+												class="commandIcon"></span><span id="j_id76:0:j_id113"
+											class="toolTipContent">Hinweise</span></span></span></th>
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">21.09.13 15:00</td>
+
+								<td>3</td>
+								<td>1</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348136&amp;contentOnly=true"><span
+										style="">VfL Stade</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362679&amp;locationId=76512&amp;layout=popup&amp;contentOnly=true">Friedrich-Fröbel-Schule
+								</a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:0:j_id359" class="commandIconContainer"><span
+										id="j_id76:0:j_id361" class="toolTipContainer "><span
+											id="j_id76:0:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:0:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">28.09.13 15:00</td>
+
+								<td>9</td>
+								<td>2</td>
+								<td><span id="j_id76:1:j_id139"
+									class="commandIconContainer"><span id="j_id76:1:j_id141"
+										class="toolTipContainer "><span id="j_id76:1:j_id142"
+											class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/home.png" alt=""
+												class="commandIcon"></span><span id="j_id76:1:j_id145"
+											class="toolTipContent">Gastgeber</span></span></span></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348585&amp;contentOnly=true"><span
+										style="">Bremen 1860 III</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362686&amp;locationId=76474&amp;layout=popup&amp;contentOnly=true">Grundschule
+										Wilstedt </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:1:j_id359" class="commandIconContainer"><span
+										id="j_id76:1:j_id361" class="toolTipContainer "><span
+											id="j_id76:1:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:1:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">28.09.13 15:00</td>
+
+								<td>10</td>
+								<td>2</td>
+								<td><span id="j_id76:2:j_id139"
+									class="commandIconContainer"><span id="j_id76:2:j_id141"
+										class="toolTipContainer "><span id="j_id76:2:j_id142"
+											class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/home.png" alt=""
+												class="commandIcon"></span><span id="j_id76:2:j_id145"
+											class="toolTipContent">Gastgeber</span></span></span></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348314&amp;contentOnly=true"><span
+										style="">VSK Osterholz-Scharmbeck</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362689&amp;locationId=76474&amp;layout=popup&amp;contentOnly=true">Grundschule
+										Wilstedt </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:2:j_id359" class="commandIconContainer"><span
+										id="j_id76:2:j_id361" class="toolTipContainer "><span
+											id="j_id76:2:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:2:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">19.10.13 15:00</td>
+
+								<td>14</td>
+								<td>3</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348309&amp;contentOnly=true"><span
+										style="">TSV Worpswede</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362695&amp;locationId=76444&amp;layout=popup&amp;contentOnly=true">Sporthalle
+										am Hallenbad </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:3:j_id359" class="commandIconContainer"><span
+										id="j_id76:3:j_id361" class="toolTipContainer "><span
+											id="j_id76:3:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:3:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">26.10.13 15:00</td>
+
+								<td>23</td>
+								<td>4</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348350&amp;contentOnly=true"><span
+										style="">TSV Winsen/Luhe</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362699&amp;locationId=76412&amp;layout=popup&amp;contentOnly=true">Luhe-Gymnasium
+										Roydorf </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:4:j_id359" class="commandIconContainer"><span
+										id="j_id76:4:j_id361" class="toolTipContainer "><span
+											id="j_id76:4:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:4:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">02.11.13 15:00</td>
+
+								<td>26</td>
+								<td>5</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348301&amp;contentOnly=true"><span
+										style="">TV Baden II</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362709&amp;locationId=76541&amp;layout=popup&amp;contentOnly=true">Lahofhalle
+								</a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:5:j_id359" class="commandIconContainer"><span
+										id="j_id76:5:j_id361" class="toolTipContainer "><span
+											id="j_id76:5:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:5:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">30.11.13 15:00</td>
+
+								<td>45</td>
+								<td>8</td>
+								<td><span id="j_id76:6:j_id139"
+									class="commandIconContainer"><span id="j_id76:6:j_id141"
+										class="toolTipContainer "><span id="j_id76:6:j_id142"
+											class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/home.png" alt=""
+												class="commandIcon"></span><span id="j_id76:6:j_id145"
+											class="toolTipContent">Gastgeber</span></span></span></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348575&amp;contentOnly=true"><span
+										style="">TSV Buxtehude-Altkloster II</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362728&amp;locationId=76474&amp;layout=popup&amp;contentOnly=true">Grundschule
+										Wilstedt </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:6:j_id359" class="commandIconContainer"><span
+										id="j_id76:6:j_id361" class="toolTipContainer "><span
+											id="j_id76:6:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:6:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">30.11.13 15:00</td>
+
+								<td>46</td>
+								<td>8</td>
+								<td><span id="j_id76:7:j_id139"
+									class="commandIconContainer"><span id="j_id76:7:j_id141"
+										class="toolTipContainer "><span id="j_id76:7:j_id142"
+											class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/home.png" alt=""
+												class="commandIcon"></span><span id="j_id76:7:j_id145"
+											class="toolTipContent">Gastgeber</span></span></span></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348305&amp;contentOnly=true"><span
+										style="">TuS Zeven II</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362731&amp;locationId=76474&amp;layout=popup&amp;contentOnly=true">Grundschule
+										Wilstedt </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:7:j_id359" class="commandIconContainer"><span
+										id="j_id76:7:j_id361" class="toolTipContainer "><span
+											id="j_id76:7:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:7:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">14.12.13 15:00</td>
+
+								<td>49</td>
+								<td>9</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348314&amp;contentOnly=true"><span
+										style="">VSK Osterholz-Scharmbeck</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362736&amp;locationId=76438&amp;layout=popup&amp;contentOnly=true">August-Schlüter-Halle
+								</a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:8:j_id359" class="commandIconContainer"><span
+										id="j_id76:8:j_id361" class="toolTipContainer "><span
+											id="j_id76:8:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:8:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">11.01.14 15:00</td>
+
+								<td>59</td>
+								<td>10</td>
+								<td><span id="j_id76:9:j_id139"
+									class="commandIconContainer"><span id="j_id76:9:j_id141"
+										class="toolTipContainer "><span id="j_id76:9:j_id142"
+											class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/home.png" alt=""
+												class="commandIcon"></span><span id="j_id76:9:j_id145"
+											class="toolTipContent">Gastgeber</span></span></span></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348301&amp;contentOnly=true"><span
+										style="">TV Baden II</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362741&amp;locationId=76474&amp;layout=popup&amp;contentOnly=true">Grundschule
+										Wilstedt </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:9:j_id359" class="commandIconContainer"><span
+										id="j_id76:9:j_id361" class="toolTipContainer "><span
+											id="j_id76:9:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:9:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">11.01.14 15:00</td>
+
+								<td>60</td>
+								<td>10</td>
+								<td><span id="j_id76:10:j_id139"
+									class="commandIconContainer"><span
+										id="j_id76:10:j_id141" class="toolTipContainer "><span
+											id="j_id76:10:j_id142" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/home.png" alt=""
+												class="commandIcon"></span><span id="j_id76:10:j_id145"
+											class="toolTipContent">Gastgeber</span></span></span></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348098&amp;contentOnly=true"><span
+										style="">SG Karlshöfen/Gnarrenburg</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362746&amp;locationId=76474&amp;layout=popup&amp;contentOnly=true">Grundschule
+										Wilstedt </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:10:j_id359" class="commandIconContainer"><span
+										id="j_id76:10:j_id361" class="toolTipContainer "><span
+											id="j_id76:10:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:10:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">19.01.14 10:00</td>
+
+								<td>63</td>
+								<td>11</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348136&amp;contentOnly=true"><span
+										style="">VfL Stade</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362749&amp;locationId=76512&amp;layout=popup&amp;contentOnly=true">Friedrich-Fröbel-Schule
+								</a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:11:j_id359" class="commandIconContainer"><span
+										id="j_id76:11:j_id361" class="toolTipContainer "><span
+											id="j_id76:11:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:11:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">25.01.14 15:00</td>
+
+								<td>70</td>
+								<td>12</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348585&amp;contentOnly=true"><span
+										style="">Bremen 1860 III</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362759&amp;locationId=77028&amp;layout=popup&amp;contentOnly=true">Halle
+										9 bei Bremen 1860 </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:12:j_id359" class="commandIconContainer"><span
+										id="j_id76:12:j_id361" class="toolTipContainer "><span
+											id="j_id76:12:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:12:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">01.02.14 13:00</td>
+
+								<td>38</td>
+								<td>7</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348098&amp;contentOnly=true"><span
+										style="">SG Karlshöfen/Gnarrenburg</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362723&amp;locationId=76456&amp;layout=popup&amp;contentOnly=true">Schulzentrum
+										Gnarrenburg </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:13:j_id359" class="commandIconContainer"><span
+										id="j_id76:13:j_id361" class="toolTipContainer "><span
+											id="j_id76:13:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:13:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">09.02.14 13:00</td>
+
+								<td>75</td>
+								<td>13</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348575&amp;contentOnly=true"><span
+										style="">TSV Buxtehude-Altkloster II</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362763&amp;locationId=76497&amp;layout=popup&amp;contentOnly=true">Schulzentrum
+										Buxtehude-Süd </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:14:j_id359" class="commandIconContainer"><span
+										id="j_id76:14:j_id361" class="toolTipContainer "><span
+											id="j_id76:14:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:14:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">22.02.14 15:00</td>
+
+								<td>81</td>
+								<td>14</td>
+								<td><span id="j_id76:15:j_id139"
+									class="commandIconContainer"><span
+										id="j_id76:15:j_id141" class="toolTipContainer "><span
+											id="j_id76:15:j_id142" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/home.png" alt=""
+												class="commandIcon"></span><span id="j_id76:15:j_id145"
+											class="toolTipContent">Gastgeber</span></span></span></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348305&amp;contentOnly=true"><span
+										style="">TuS Zeven II</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362770&amp;locationId=76474&amp;layout=popup&amp;contentOnly=true">Grundschule
+										Wilstedt </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:15:j_id359" class="commandIconContainer"><span
+										id="j_id76:15:j_id361" class="toolTipContainer "><span
+											id="j_id76:15:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:15:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow0 ">
+
+								<td class="textualTableCell">22.02.14 15:00</td>
+
+								<td>82</td>
+								<td>14</td>
+								<td><span id="j_id76:16:j_id139"
+									class="commandIconContainer"><span
+										id="j_id76:16:j_id141" class="toolTipContainer "><span
+											id="j_id76:16:j_id142" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/home.png" alt=""
+												class="commandIcon"></span><span id="j_id76:16:j_id145"
+											class="toolTipContent">Gastgeber</span></span></span></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348350&amp;contentOnly=true"><span
+										style="">TSV Winsen/Luhe</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362773&amp;locationId=76474&amp;layout=popup&amp;contentOnly=true">Grundschule
+										Wilstedt </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:16:j_id359" class="commandIconContainer"><span
+										id="j_id76:16:j_id361" class="toolTipContainer "><span
+											id="j_id76:16:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:16:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+
+							<tr class="alternatingRow1 ">
+
+								<td class="textualTableCell">08.03.14 15:00</td>
+
+								<td>86</td>
+								<td>15</td>
+								<td></td>
+
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348309&amp;contentOnly=true"><span
+										style="">TSV Worpswede</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303&amp;contentOnly=true"><span
+										style="">MTV Wilstedt</span> </a></td>
+								<td class="textualTableCell"><a
+									href="https://sams.nvv-online.de/SamsNvv/matchDetails.xhtml?matchId=362779&amp;locationId=76444&amp;layout=popup&amp;contentOnly=true">Sporthalle
+										am Hallenbad </a></td>
+								<td style="white-space: nowrap;"><span
+									id="j_id76:17:j_id359" class="commandIconContainer"><span
+										id="j_id76:17:j_id361" class="toolTipContainer "><span
+											id="j_id76:17:j_id362" class="toolTipItem"><img
+												src="Mannschaftsdetails-Dateien/ledred.png" alt=""
+												class="commandIcon"></span><span id="j_id76:17:j_id365"
+											class="toolTipContent">Ergebnisse nicht bestätigt</span></span></span></td>
+
+							</tr>
+						</tbody>
+					</table>
+					</p>
+					<div style="clear: both; height: 1px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		//<![CDATA[
+
+		function updateLinks() {
+			var links = document.getElementsByTagName("a");
+			for ( var i = 0; i !== links.length; i++) {
+				var l = links[i];
+				if (l.href.indexOf("?") > -1) {
+					l.href = l.href + "&contentOnly=true";
+				} else {
+					l.href = l.href + "?contentOnly=true";
+				}
+			}
+		}
+
+		function updateForms() {
+			var forms = document.getElementsByTagName("form");
+			var hiddenField = document.createElement("input");
+			hiddenField.setAttribute("type", "hidden");
+			hiddenField.setAttribute("name", "layout");
+			//hiddenField.setAttribute("id", "hiddenName");
+			hiddenField.setAttribute("value", "popup");
+			for ( var i = 0; i !== forms.length; i++) {
+				var f = forms[i];
+
+				f.appendChild(hiddenField);
+			}
+		}
+
+		updateLinks();
+		updateForms();
+
+		//]]>
+	</script>
+
+
+	<script src="Mannschaftsdetails-Dateien/browser-update.js"
+		type="text/javascript"></script>
+</body>
+</html>

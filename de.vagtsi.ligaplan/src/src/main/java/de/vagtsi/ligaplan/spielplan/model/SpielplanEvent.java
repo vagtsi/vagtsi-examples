@@ -11,6 +11,7 @@ import java.util.Date;
 public class SpielplanEvent {
 	private String homeTeamName;	//the name of the home team
 	private String guestTeamName;	//the name of the guest team
+	private boolean homeGame;		//whether this game is a home game of the selected team
 	private Date gameTime;			//time and date when the game starts
 	private SpielplanLocation location;	//the name and place of the sports hall
 	private int gameNumber; 		//the unique number of the game within the season
@@ -59,5 +60,11 @@ public class SpielplanEvent {
 	public void setGameNumber(int gameNumber) {
 		this.gameNumber = gameNumber;
 	}
-	
+
+	public boolean isHomeGame() {
+		return homeGame;
+	}
+	public void setHomeGame(boolean homeGame) {
+		this.homeGame = homeGame;
+	}
 }

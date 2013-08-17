@@ -4,8 +4,6 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,34 +19,37 @@ import de.vagtsi.ligaplan.spielplan.model.SpielplanEvent;
 import de.vagtsi.ligaplan.spielplan.model.SpielplanLocation;
 
 /**
- * Convert 'Spielplan' calendar html from NVV-online website to ics text file to be used for
+ * Convert 'Spielplan' calendar html from <a href="nvv-online.de">NVV online SAMS website</a> to ics text file to be used for
  * imports into private calendars as of google calendar etc.
- * <p>Note: this parser supports to old nvv-online.de website used before 2013, the new website released in 2013
- * uses a new xhtml based design called 'SAMS' to be parsed with the new parser {@link SpielplanSamsHtmlParser}.</p>    
  * 
  * @author Jens Vagts
- * @deprecated
+ * @since 0.0.2
  */
-public class SpielplanHtmlParser {
-	final static Logger logger = LoggerFactory.getLogger(SpielplanHtmlParser.class);
+public class SpielplanSamsHtmlParser {
+	final static Logger logger = LoggerFactory.getLogger(SpielplanSamsHtmlParser.class);
 
 	/** the date format to use for parsing the dates (e.g. 30.09.12) */
-	private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");
-	private static final DateFormat timeFormat = new SimpleDateFormat("hh:mm");
+	private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy hh:mm");
 
 	/** map of locations identified by it's url to parse each location only once */
 	private Map<String, SpielplanLocation> locationMap = new HashMap<String, SpielplanLocation>();
+
+	/** true for running unit test and to skip some url lookups */
+	private boolean testing = false;
 	
 	// public static void main(String[] args) {
 	//
-	// if (args.length < 1) {
+	// if (args.length < 1) {table
 	// logger.error("Please provide a source html ulr filename.");
 	// return;
 	// }
 	// new Html2ics("").readHtmlFromSource();
 	// }
 
-	public SpielplanHtmlParser() {
+	public SpielplanSamsHtmlParser() {
+	}
+	public SpielplanSamsHtmlParser(boolean testing) {
+		this.testing  = testing;
 	}
 
 	/**
@@ -97,6 +98,10 @@ public class SpielplanHtmlParser {
 
 	}
 
+	/**
+	 * Parse the location (the file is a 'matchDetails.xhtml' file containing just another url pointing
+	 * to the 'locationDetails.xhtml url containin the desired address. 
+	 */
 	public SpielplanLocation parseLocationFromUrl(String locationUrl) {
 		logger.info("Parsing location html url from '{}'", locationUrl);
 		try  {
@@ -110,6 +115,9 @@ public class SpielplanHtmlParser {
 		}
 	}
 
+	/**
+	 * used for unit testing only
+	 */
 	public SpielplanLocation parseLocationFromFile(String fileName, String baseUrl) {
 		logger.info("Parsing location html file from '{}'", fileName);
 		try {
@@ -127,6 +135,26 @@ public class SpielplanHtmlParser {
 		}
 	}
 
+	/**
+	 * used for unit testing only
+	 */
+	public SpielplanLocation parseLocationDetailsFromFile(String fileName, String baseUrl) {
+		logger.info("Parsing location *details* html file from '{}'", fileName);
+		try {
+			File locationFile = new File(fileName);
+			if (!locationFile.exists()) {
+				throw new Exception(String.format("Location details file '%s' not found!", fileName));
+			}
+			Document doc = Jsoup.parse(locationFile, "UTF-8", baseUrl);
+			
+			return parseLocationDetails(doc);
+		} catch (Exception e) {
+			logger.error("Failed parse location from html '{}': {}",
+					fileName, e.getMessage());
+			return null;
+		}
+	}
+	
 	// ~~~~~~~~~~~~~~~~~ private ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	/**
@@ -138,80 +166,67 @@ public class SpielplanHtmlParser {
 		//TODO: retrieve the name of the plan
 		
 		//search for the table containing events
-		//-> as of the table has no real 'identifier' we just look for the only
-		//table having a attribute 'align' with the value 'center'
-		Elements eventTables = doc.body().select("table[align=center]");
+		//-> as of the table has no real 'identifier' we have to look for the
+		// 1. div tag having content 'Spielverlauf'
+		// 2. look for the next sibling div tag and get the tabe with class 'samsDataTable'
+		Elements eventTables = doc.body().select("div:contains(Spielverlauf) > div.samsContentBoxContent > table.samsDataTable");
 		if (eventTables.isEmpty()) {
 			throw new Exception("Failed to find the event table, please check the parser rule or input file.");
 		}
+		
 		Element eventTable = eventTables.first();
 		logger.trace("- found event table");
 		Elements eventRows = eventTable.select("tr");
 		logger.trace("- found {} event rows in table", eventRows.size());
-		Calendar eventTime = Calendar.getInstance(); //current (last) event date
 		for (Element row : eventRows) {
 			SpielplanEvent event = new SpielplanEvent();
 			
-			//ignore 'linebreak' row (having just one column/td with colspan)
+			//ignore header row (having only th tags)
+			//or any 'linebreak' row (having just one column/td with colspan)
 			Elements cols = row.select("td");
 			if (cols.size() <= 1) {
 				continue;
 			}
 			
-			//col1: get the date (day) of the event
+			//col1: get the date (day and time) of the event
 			Iterator<Element> colIt = cols.iterator();
 			Element col = colIt.next();
 			String text = col.text().trim();
-			if (text.length() <= 1) {
-				//just use the date from previous row as it is a additional/following game
-			} else {
-				logger.trace("- date = '{}'", text);
-				eventTime.setTime(dateFormat.parse(text));
-				//set/initialize the time part to zero
-				setTimeToCalendar(eventTime, null);
-			}
-			
-			//col2: time
+			logger.trace("- date = '{}'", text);
+			event.setGameTime(dateFormat.parse(text));
+			logger.trace("- event date = {}", event.getGameTime().toString());
+
+			//col2: game number
 			text = colIt.next().text();
-			logger.trace("- time = '{}'", text);
-			if (text.equals("anschl.")) {
-				//just assume one additional hour
-				eventTime.set(Calendar.HOUR_OF_DAY, eventTime.get(Calendar.HOUR_OF_DAY)+1);
-			} else {
-				setTimeToCalendar(eventTime, timeFormat.parse(text));
-			}
-			logger.trace("- event date = {}", eventTime.getTime().toString());
-			event.setGameTime(eventTime.getTime());
+			logger.trace("- game no. = '{}'", text);
+			event.setGameNumber(Integer.parseInt(text));
+
+			//col3: game *day* number
+			text = colIt.next().text();
+			//ignore
 			
-			//col3: location (gym)
+			//col4: home game flag (contains image if it's a home game, nothing if not)
+			text = colIt.next().text();
+			event.setHomeGame(text != null && !text.isEmpty());
+			logger.trace("- game is{} a home game", (event.isHomeGame() ? "" : " *not*"));
+
+			//col5: home team
+			text = colIt.next().text();
+			logger.trace("- home team = '{}'", text);
+			event.setHomeTeamName(text);
+
+			//col6: guest team
+			text = colIt.next().text();
+			logger.trace("- guest team = '{}'", text);
+			event.setGuestTeamName(text);
+			
+			//col7: location (gym)
 			//retrieve the location from the link
 			col = colIt.next();
 			Element gymLink = col.select("a").first();
 			String gymUrl = gymLink.attr("abs:href");
 			logger.trace("- gymUrl = '{}'", gymUrl);
 			event.setLocation(getLocation(gymUrl));
-			
-			//text = colIt.next().text();
-			//logger.trace("- gym = '{}'", text);
-			//event.setGymnasium(text);
-			
-			//col4: game number
-			text = colIt.next().text();
-			logger.trace("- game no. = '{}'", text);
-			event.setGameNumber(Integer.parseInt(text));
-			
-			//col5: home team
-			text = colIt.next().text();
-			logger.trace("- home team = '{}'", text);
-			event.setHomeTeamName(text);
-
-			//col6: formatting (minus sign, ignore) 
-			text = colIt.next().text();
-			
-			//col7: guest team
-			text = colIt.next().text();
-			logger.trace("- guest team = '{}'", text);
-			event.setGuestTeamName(text);
 			
 			//add the complete event to list
 			events.add(event);
@@ -241,74 +256,79 @@ public class SpielplanHtmlParser {
 	 * Parse the location from the html document already opened 
 	 */
 	private SpielplanLocation parseLocation(Document doc) throws Exception {
-		//search for the table containing the location
+		//search for the table containing the location (just another url pointing to the location details)
 		//-> as of the table has no real 'identifier' we just look for the
 		//child table of the second table in the body
-		Elements globalTables = doc.body().select("table");
-		if (globalTables.isEmpty()) {
-			throw new Exception("Failed to find the tables in the body tag," +
+		Elements gameDetails = doc.body().select("div.samsContentBoxHeader:contains(Spiel) ~ div.samsContentBoxContent");
+		if (gameDetails.isEmpty()) {
+			throw new Exception("Failed to find the game details tag within matchDetails file ," +
 					" please check the parser rule or input file.");
 		}
-		Element parentTable = globalTables.get(1);			
-		Elements locationTables = parentTable.select("table");
-		if (locationTables.isEmpty()) {
-			throw new Exception("Failed to find the location table," +
+		
+		Elements locationAnchor = gameDetails.first().select("p:eq(2) > a");
+		if (locationAnchor.isEmpty()) {
+			throw new Exception("Failed to find location anchor within matchDetails file ," +
 					" please check the parser rule or input file.");
 		}
-		Element locationTable = locationTables.first();
-		logger.trace("- found location table");
-		Elements locationRows = locationTable.select("tr");
-		final int minRowCount = 5;
-		if (locationRows.size() < minRowCount) {
-			throw new Exception(String.format(
-					"Found only %s rows but need at least %s in the location table," +
-					" please check the parser rule or input file.",
-					locationRows.size(), minRowCount));
-			
+		String locationUrl = locationAnchor.first().attr("abs:href");
+		logger.trace("- location details URL = {}", locationUrl);;
+		
+		if (testing) {
+			logger.info("Skip parsing location *details* html url from '{}' as of running unit test", locationUrl);
+			return new SpielplanLocation(); //return just an empty object
 		}
+		
+		logger.info("Parsing location *details* html url from '{}'", locationUrl);
+		Document locationDoc = Jsoup.connect(locationUrl).get();
+		return parseLocationDetails(locationDoc);
+	}
+
+	/**
+	 * Parse the location details file from given already opened document
+	 */
+	public SpielplanLocation parseLocationDetails(Document locationDoc) throws Exception {
+		Elements locationDetails = locationDoc.body().select(
+				"div.popupContentContainer > div.content > table > tbody > tr > td:eq(0) > div.samsContentBox > div.samsContentBoxContent");
+		if (locationDetails.isEmpty()) {
+			throw new Exception("Failed to find the location details tag in locationDetails file," +
+					" please check the parser rule or input file.");
+		}
+		Element locationTag = locationDetails.first();
+		logger.trace("- found location tag");
 		SpielplanLocation location = new SpielplanLocation();
 
 		//location (gym) name
-		Element row = locationRows.get(4);
-		String text = row.select("td").first().text();
+		String text = locationTag.select("h1").first().text();
 		logger.trace("- location name  = '{}'", text);
 		location.setName(text);
 
-		//address 
-		row = locationRows.get(5);
-		text = row.select("td").first().text();
+		//address: we retrieve 'uncleaned' text via TextNode.getWholeText() to get the linebreak
+		//between street and postcode
+		String unformattedAddress = locationTag.select("p").get(1).textNodes().iterator().next().getWholeText();
+		String[] addressLines = unformattedAddress.split("\n");
+		if (addressLines.length == 0) {
+			throw new Exception(String.format("Address without any newlines found in locationDetails file: adress = {}",
+					unformattedAddress));
+		}
+		
+		logger.trace("- address consists of {} lines", addressLines.length);
+		StringBuilder address = new StringBuilder(addressLines[0]);
+		for (int i = 1; i < addressLines.length; i++) {
+			address.append(", ");
+			address.append(addressLines[i].trim());
+		}
+		text = address.toString();
 		logger.trace("- adress = '{}'", text);
 		location.setAddress(text);
 
-		//telephone number 
-		row = locationRows.get(6);
-		text = row.select("td").first().text();
-		logger.trace("- telephone number = '{}'", text);
-		location.setTelephoneNumber(text);
+		//telephone number (seems to be not supported in<p> </p> SAMS anymore...) 
+//		row = locationRows.get(6);
+//		text = row.select("td").first().text();
+//		logger.trace("- telephone number = '{}'", text);
+//		location.setTelephoneNumber(text);
 		
 		logger.info("Finished parsing of location '{}'", location.getName());
 		
 		return location;
-	}
-
-	
-	/**
-	 * Set the time part of given calendar
-	 */
-	private void setTimeToCalendar(Calendar calendar, Date time) {
-		if (time == null) {
-			//zero the time part of the calendar (ugly calendar api :() 
-			calendar.set(Calendar.HOUR_OF_DAY, 0);
-			calendar.set(Calendar.MINUTE, 0);
-			calendar.set(Calendar.SECOND, 0);
-			calendar.set(Calendar.MILLISECOND, 0); 
-		} else {
-			Calendar timeCal = Calendar.getInstance();
-			timeCal.setTime(time);
-			calendar.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY));
-			calendar.set(Calendar.MINUTE, timeCal.get(Calendar.MINUTE));
-			calendar.set(Calendar.SECOND, timeCal.get(Calendar.SECOND));
-			calendar.set(Calendar.MILLISECOND, timeCal.get(Calendar.MILLISECOND)); 
-		}
 	}
 }

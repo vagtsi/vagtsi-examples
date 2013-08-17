@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<base href="https://sams.nvv-online.de:443/SamsNvv/" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="/SamsNvv/a4j/g/3_3_3.Final/org/ajax4jsf/framework.pack.js"
+	type="text/javascript"></script>
+<script src="/SamsNvv/a4j/g/3_3_3.Final/org/richfaces/ui.pack.js"
+	type="text/javascript"></script>
+<link class="component"
+	href="/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/basic_classes.xcss/DATB/eAHbdnRLUujyGdIAFdEEQQ__"
+	rel="stylesheet" type="text/css" />
+<link class="component"
+	href="/a4j/s/3_3_3.Finalorg/richfaces/renderkit/html/css/extended_classes.xcss/DATB/eAHbdnRLUujyGdIAFdEEQQ__"
+	media="rich-extended-skinning" rel="stylesheet" type="text/css" />
+<link class="component"
+	href="/a4j/s/3_3_3.Final/org/richfaces/skin.xcss/DATB/eAHbdnRLUujyGdIAFdEEQQ__"
+	rel="stylesheet" type="text/css" />
+<script id="org.ajax4jsf.queue_script" type="text/javascript">
+	if (typeof A4J != 'undefined') {
+		if (A4J.AJAX) {
+			with (A4J.AJAX) {
+				if (!EventQueue.getQueue('org.richfaces.queue.global')) {
+					EventQueue.addQueue(new EventQueue(
+							'org.richfaces.queue.global', null, null))
+				}
+				;
+			}
+		}
+	};
+</script>
+<link class="component"
+	href="/a4j/s/3_3_3.FinalMETA-INF/skins/darkX.xcss/DATB/eAHbdnRLUujyGdIAFdEEQQ__"
+	rel="stylesheet" type="text/css" />
+<link class="component"
+	href="/a4j/s/3_3_3.FinalMETA-INF/skins/darkXExt.xcss/DATB/eAHbdnRLUujyGdIAFdEEQQ__"
+	media="rich-extended-skinning" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+	window.RICH_FACES_EXTENDED_SKINNING_ON = true;
+</script>
+<script src="/a4j/g/3_3_3.Finaljquery.js" type="text/javascript"></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC71si7EErdcCtMciV6fmHHcuZYXacSRqs&amp;sensor=false"
+	type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/sams.css" />
+<link rel="stylesheet" type="text/css" href="css/ma.css" />
+<link rel="stylesheet" type="text/css" href="css/popup.css" />
+<!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="css/sams_iefixes.css" />
+	      <link rel="stylesheet" type="text/css" href="css/ma_iefixes.css" />
+	    <![endif]-->
+<title>Spiel - Details</title>
+<link rel="shortcut icon" href="images/favicon.ico" />
+<?xml version="1.0" encoding="UTF-8"?>
+<form id="samsJsPixelRatioForm" name="samsJsPixelRatioForm"
+	method="post" action="/matchDetails.xhtml">
+	<script id="samsJsPixelRatioForm:j_id7" type="text/javascript">
+		//<![CDATA[
+		updatePixelRatio = function(param1) {
+			A4J.AJAX.Submit('samsJsPixelRatioForm', null, {
+				'similarityGroupingId' : 'samsJsPixelRatioForm:j_id7',
+				'parameters' : {
+					'param1' : param1,
+					'samsJsPixelRatioForm:j_id7' : 'samsJsPixelRatioForm:j_id7'
+				},
+				'actionUrl' : '/matchDetails.xhtml'
+			})
+		};
+		//]]>
+	</script>
+	<input type="hidden" autocomplete="off" name="samsJsPixelRatioForm"
+		value="samsJsPixelRatioForm" /><input type="hidden"
+		autocomplete="off" name="autoScroll" value="" /><input type="hidden"
+		autocomplete="off" name="samsJsPixelRatioForm:_link_hidden_" value="" /><input
+		type="hidden" autocomplete="off" name="samsJsPixelRatioForm:j_idcl"
+		value="" />
+	<script type="text/javascript">
+		function clear_samsJsPixelRatioForm() {
+			_clearJSFFormParameters('samsJsPixelRatioForm', '', [
+					'samsJsPixelRatioForm:_link_hidden_',
+					'samsJsPixelRatioForm:j_idcl' ]);
+		}
+		function clearFormHiddenParams_samsJsPixelRatioForm() {
+			clear_samsJsPixelRatioForm();
+		}
+		function clearFormHiddenParams_samsJsPixelRatioForm() {
+			clear_samsJsPixelRatioForm();
+		}
+		clear_samsJsPixelRatioForm();
+	</script>
+	<input type="hidden" name="javax.faces.ViewState"
+		id="javax.faces.ViewState" value="j_id20" autocomplete="off" />
+</form>
+
+<script type="text/javascript" src="js/sams.js"></script>
+<script type="text/javascript" src="js/popupwindow.js"></script>
+<script type="text/javascript"
+	src="/SamsNvv/seam/resource/remoting/resource/remote.js"></script>
+<script type="text/javascript"
+	src="/SamsNvv/seam/resource/remoting/interface.js?httpSessionChecker"></script>
+
+<!-- TODO: Remove this when https://issues.jboss.org/browse/RF-9485 is fixed -->
+<script type="text/javascript" src="js/AJAX-Richfaces-3.3.3-fix.js"></script>
+
+<script type="text/javascript">
+	//<![CDATA[
+	// set some values from the application context
+	var messages = new Object();
+	messages.defaultConfirm = "Sind Sie sicher?";
+	messages.route_finder = "Routenplaner";
+
+	// initialize client dpi setting 
+	var dpr = 1.0;
+	if (dpr === null) {
+		// forward setting to identity
+		updatePixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+	}
+
+	//]]>
+
+	// Poll the server every sessionTimout / 3 seconds to avoid the session timing out while the browser window is open.
+	// ###################### Seam Remoting #################################
+	Seam.Remoting.displayLoadingMessage = function() {
+	};
+	Seam.Remoting.hideLoadingMessage = function() {
+	};
+
+	// ###################### Session timeout alert #################################
+	var sessionChecker = Seam.Component.getInstance("httpSessionChecker");
+	var timeoutMillis = 1800 * 1000 / 3;
+	var sessionTimeoutInterval = null;
+
+	function initSessionTimeout() {
+		sessionTimeoutInterval = setInterval('sessionChecker.keepAlive()',
+				timeoutMillis);
+	}
+
+	function stopSessionTimeoutCheck() {
+		if (sessionTimeoutInterval)
+			clearInterval(sessionTimeoutInterval);
+	}
+
+	function sessionCheckerCallBack() {
+
+	}
+</script>
+</head>
+
+<body>
+
+	<table class="popupHeader">
+		<tr>
+			<td>
+				<h1>Niedersächsischer Volleyball-Verband</h1>
+			</td>
+			<td>
+				<h2>Spiel - Details</h2>
+			</td>
+		</tr>
+	</table>
+	<div class="popupContentContainer">
+		<span id="_viewRoot:status"><span id="_viewRoot:status.start"
+			style="display: none"><div id="j_id17"
+					style="position: fixed; top: 50%; left: 50%; z-index: 10000; border: 3px solid black;">
+					<img src="/images/ajax-loader-large.gif" />
+				</div></span><span id="_viewRoot:status.stop"></span></span>
+
+
+		<div class="content">
+
+			<!-- messages as insert to make them removable -->
+			<span id="j_id20"></span>
+
+			<!-- content -->
+			<table style="margin: 0px auto;">
+				<tr>
+					<td>
+						<div class="samsContentBox " style="">
+							<div class="samsContentBoxHeader">Spiel</div>
+							<div class="samsContentBoxContent">
+								<p style="font-weight: bold">
+
+									<a href="popup/matchSeries/teamDetails.xhtml?teamId=348303">MTV
+										Wilstedt </a> vs. <a
+										href="popup/matchSeries/teamDetails.xhtml?teamId=348585">Bremen
+										1860 III </a>
+								</p>
+
+								<p>
+									Landesliga 3 (Männer)<br />Gastgeber: MTV Wilstedt<br />28.
+									September 2013 15:00 <br />
+								</p>
+								<p>
+
+									<a
+										href="locationDetails.xhtml?locationId=76474&amp;layout=popup">Grundschule
+										Wilstedt (27412 Wilstedt) </a>
+
+								</p>
+								<div style="clear: both; height: 1px;"></div>
+							</div>
+						</div>
+
+					</td>
+					<td>
+						<div class="samsContentBox " style="">
+							<div class="samsContentBoxHeader">Austragungsort -
+								Grundschule Wilstedt</div>
+							<div class="samsContentBoxContent">
+								<script language="javascript">
+									//<![CDATA[                            
+									// Init map
+									function showRoute() {
+										var dest_url = "https://maps.google.de/maps?daddr=Schulstraße 11, 27412 Wilstedt, Germany";
+										window.open(dest_url, '_blank');
+									}
+									function locationMapInit() {
+										geocoder = new google.maps.Geocoder();
+										geocoder
+												.geocode(
+														{
+															'address' : 'Schulstraße 11, 27412 Wilstedt, Germany'
+														},
+														function(results,
+																status) {
+															if (status === google.maps.GeocoderStatus.OK) {
+																googleMap
+																		.setCenter(results[0].geometry.location);
+																var marker = new google.maps.Marker(
+																		{
+																			map : googleMap,
+																			position : results[0].geometry.location
+																		});
+																var infowindow = new google.maps.InfoWindow(
+																		{
+																			content : '<b>Grundschule Wilstedt</b> <br />Schulstraße 11, 27412 Wilstedt<br /><br /><input type="button" value="Route planen" onClick="showRoute();"/>'
+																		});
+																infowindow
+																		.open(
+																				googleMap,
+																				marker);
+															} else {
+																alert("Geocode was not successful for the following reason: "
+																		+ status);
+															}
+														});
+
+									}
+									//]]>
+								</script>
+								<script type="text/javascript">
+									var googleMap;
+									function initialize() {
+										var mapOptions = {
+											center : new google.maps.LatLng(
+													52.37, 9.72),
+											zoom : 8,
+											mapTypeId : google.maps.MapTypeId.ROADMAP
+										};
+										googleMap = new google.maps.Map(
+												document
+														.getElementById("locationMap"),
+												mapOptions);
+										locationMapInit();
+									}
+									window.onload = initialize;
+								</script>
+								<div class="noFancyLabel samsGoogleMapDiv" id="locationMap"
+									style="width: 300; height: 350">test</div>
+								<div style="clear: both; height: 1px;"></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<script>
+		//<![CDATA[
+
+		function updateLinks() {
+			var links = document.getElementsByTagName("a");
+			for ( var i = 0; i !== links.length; i++) {
+				var l = links[i];
+				if (l.href.indexOf("?") > -1) {
+					l.href = l.href + "&contentOnly=true";
+				} else {
+					l.href = l.href + "?contentOnly=true";
+				}
+			}
+		}
+
+		function updateForms() {
+			var forms = document.getElementsByTagName("form");
+			var hiddenField = document.createElement("input");
+			hiddenField.setAttribute("type", "hidden");
+			hiddenField.setAttribute("name", "layout");
+			//hiddenField.setAttribute("id", "hiddenName");
+			hiddenField.setAttribute("value", "popup");
+			for ( var i = 0; i !== forms.length; i++) {
+				var f = forms[i];
+
+				f.appendChild(hiddenField);
+			}
+		}
+
+		updateLinks();
+		updateForms();
+
+		//]]>
+	</script>
+
+</body>
+</html>
