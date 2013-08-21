@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Export-Package: de.vagtsi.examples.rap.application;uses:="org.eclipse.r
+ ap.rwt.application,org.eclipse.swt.events"
+Require-Bundle: org.eclipse.rap.ui;bundle-version="2.1.0"
+Bundle-ClassPath: .,WEB-INF/classes
+Bundle-Version: 1.0.0
+Bundle-Name: RAP Application
+Bundle-ManifestVersion: 2
+Import-Package: org.eclipse.rap.rwt.application,org.eclipse.rap.rwt.cl
+ ient,org.eclipse.rap.rwt.engine,org.eclipse.swt,org.eclipse.swt.event
+ s,org.eclipse.swt.layout,org.eclipse.swt.widgets
+Bundle-SymbolicName: de.vagtsi.examples.rap.application;singleton:=true
+Web-ContextPath: /
+
