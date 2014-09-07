@@ -29,14 +29,11 @@ public class SpielplanSamsHtmlParser {
 	final static Logger logger = LoggerFactory.getLogger(SpielplanSamsHtmlParser.class);
 
 	/** the date format to use for parsing the dates (e.g. 30.09.12) */
-	private static final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy hh:mm");
+	private static final DateFormat dateFormat = new SimpleDateFormat("EE, dd.MM.yy hh:mm");
 
 	/** map of locations identified by it's url to parse each location only once */
 	private Map<String, SpielplanLocation> locationMap = new HashMap<String, SpielplanLocation>();
 
-	/** true for running unit test and to skip some url lookups */
-	private boolean testing = false;
-	
 	// public static void main(String[] args) {
 	//
 	// if (args.length < 1) {table
@@ -47,9 +44,6 @@ public class SpielplanSamsHtmlParser {
 	// }
 
 	public SpielplanSamsHtmlParser() {
-	}
-	public SpielplanSamsHtmlParser(boolean testing) {
-		this.testing  = testing;
 	}
 
 	/**
@@ -68,7 +62,7 @@ public class SpielplanSamsHtmlParser {
 			return parseEvents(doc);
 		} catch (Exception e) {
 			logger.error("Failed parse events from html url '{}': {}",
-					fileUrl, e.getMessage());
+					fileUrl, e.getMessage(), e);
 			return null;
 		}
 	}
@@ -102,15 +96,15 @@ public class SpielplanSamsHtmlParser {
 	 * Parse the location (the file is a 'matchDetails.xhtml' file containing just another url pointing
 	 * to the 'locationDetails.xhtml url containin the desired address. 
 	 */
-	public SpielplanLocation parseLocationFromUrl(String locationUrl) {
+	private SpielplanLocation parseLocationFromUrl(String locationUrl) {
 		logger.info("Parsing location html url from '{}'", locationUrl);
 		try  {
 				
 			Document doc = Jsoup.connect(locationUrl).get();
-			return parseLocation(doc);
+			return parseLocationDetails(doc);
 		} catch (Exception e) {
 			logger.error("Failed parse location from html url '{}': {}",
-					locationUrl, e.getMessage());
+					locationUrl, e.getMessage(), e);
 			return null;
 		}
 	}
@@ -127,10 +121,10 @@ public class SpielplanSamsHtmlParser {
 			}
 			Document doc = Jsoup.parse(locationFile, "UTF-8", baseUrl);
 			
-			return parseLocation(doc);
+			return parseLocationDetails(doc);
 		} catch (Exception e) {
-			logger.error("Failed parse location from html '{}': {}",
-					fileName, e.getMessage());
+			logger.error("Failed parse location from file '{}': {}",
+					fileName, e.getMessage(), e);
 			return null;
 		}
 	}
@@ -149,8 +143,8 @@ public class SpielplanSamsHtmlParser {
 			
 			return parseLocationDetails(doc);
 		} catch (Exception e) {
-			logger.error("Failed parse location from html '{}': {}",
-					fileName, e.getMessage());
+			logger.error("Failed parse location details from html '{}': {}",
+					fileName, e.getMessage(), e);
 			return null;
 		}
 	}
@@ -220,10 +214,19 @@ public class SpielplanSamsHtmlParser {
 			logger.trace("- guest team = '{}'", text);
 			event.setGuestTeamName(text);
 			
-			//col7: location (gym)
+			//col7: referee
+			text = colIt.next().text();
+			//ignore
+			
+			//col8: location (gym)
 			//retrieve the location from the link
 			col = colIt.next();
-			Element gymLink = col.select("a").first();
+			Elements locTag = col.select("a");
+			if (locTag == null) {
+				throw new Exception(String.format("No location anchor tag found at column no. 8 for game no. %s",
+						event.getGameNumber()));
+			}
+			Element gymLink = locTag.first();
 			String gymUrl = gymLink.attr("abs:href");
 			logger.trace("- gymUrl = '{}'", gymUrl);
 			event.setLocation(getLocation(gymUrl));
@@ -253,38 +256,8 @@ public class SpielplanSamsHtmlParser {
 	}
 	
 	/**
-	 * Parse the location from the html document already opened 
-	 */
-	private SpielplanLocation parseLocation(Document doc) throws Exception {
-		//search for the table containing the location (just another url pointing to the location details)
-		//-> as of the table has no real 'identifier' we just look for the
-		//child table of the second table in the body
-		Elements gameDetails = doc.body().select("div.samsContentBoxHeader:contains(Spiel) ~ div.samsContentBoxContent");
-		if (gameDetails.isEmpty()) {
-			throw new Exception("Failed to find the game details tag within matchDetails file ," +
-					" please check the parser rule or input file.");
-		}
-		
-		Elements locationAnchor = gameDetails.first().select("p:eq(2) > a");
-		if (locationAnchor.isEmpty()) {
-			throw new Exception("Failed to find location anchor within matchDetails file ," +
-					" please check the parser rule or input file.");
-		}
-		String locationUrl = locationAnchor.first().attr("abs:href");
-		logger.trace("- location details URL = {}", locationUrl);;
-		
-		if (testing) {
-			logger.info("Skip parsing location *details* html url from '{}' as of running unit test", locationUrl);
-			return new SpielplanLocation(); //return just an empty object
-		}
-		
-		logger.info("Parsing location *details* html url from '{}'", locationUrl);
-		Document locationDoc = Jsoup.connect(locationUrl).get();
-		return parseLocationDetails(locationDoc);
-	}
-
-	/**
 	 * Parse the location details file from given already opened document
+	 * public for unit testing only
 	 */
 	public SpielplanLocation parseLocationDetails(Document locationDoc) throws Exception {
 		Elements locationDetails = locationDoc.body().select(

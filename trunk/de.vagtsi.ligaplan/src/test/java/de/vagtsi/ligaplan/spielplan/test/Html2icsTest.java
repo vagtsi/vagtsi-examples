@@ -14,10 +14,9 @@ import de.vagtsi.ligaplan.spielplan.model.SpielplanLocation;
 
 
 public class Html2icsTest {
-	public static final String Plan_Herren1_Url = "https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348303";
-	public static final String Plan_Herren2_Url = "https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=348068";
+	public static final String Plan_Herren1_Url = "https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=2805625";
+	public static final String Plan_Herren2_Url = "https://sams.nvv-online.de/SamsNvv/popup/matchSeries/teamDetails.xhtml?teamId=2804682";
 	public static final String testPlanFile_Herren1 = "/SAMS-Example-Mannschaftsdetails.xhtml";
-	public static final String testLocationFile = "/matchDetails.xhtml";
 	public static final String testLocationDetailsFile = "/locationDetails.xhtml";
 	public static final String testLocationBaseUrl = "https://sams.nvv-online.de/SamsNvv";
 
@@ -34,7 +33,7 @@ public class Html2icsTest {
 		//write to file
 		new Spielplan2IcalWriter().createCalendarFile(
 				".",
-				"Spielplan 1. Herren Volleyball MTV Wilstedt 2013-2014",
+				"Spielplan 1. Herren Volleyball MTV Wilstedt 2014-2015",
 				"Der Spielplan der 1. Volleyball Herren des MTV Wilstedt in der Landesliga 3 (Männer).",
 				events);
 	}
@@ -49,26 +48,17 @@ public class Html2icsTest {
 		//write to file
 		new Spielplan2IcalWriter().createCalendarFile(
 				".",
-				"Spielplan 2. Herren Volleyball MTV Wilstedt 2013-2014",
+				"Spielplan 2. Herren Volleyball MTV Wilstedt 2014-2015",
 				"Der Spielplan der 2. Volleyball Herren des MTV Wilstedt in der Bezirksliga 5 (Männer).",
 				events);
 		
 	}
 
 	@Test
-	public void parse_location() throws Exception {
-		URL testUrl = this.getClass().getResource(testLocationFile);
-		String filePath = URLDecoder.decode(testUrl.getFile(), "utf-8");
-		SpielplanLocation location = new SpielplanSamsHtmlParser(true)
-						.parseLocationFromFile(filePath, "http://sams.nvv-online.de/");
-		assertNotNull("No location", location);
-	}
-
-	@Test
 	public void parse_locationDetails() throws Exception {
 		URL testUrl = this.getClass().getResource(testLocationDetailsFile);
 		String filePath = URLDecoder.decode(testUrl.getFile(), "utf-8");
-		SpielplanLocation location = new SpielplanSamsHtmlParser(true)
+		SpielplanLocation location = new SpielplanSamsHtmlParser()
 						.parseLocationDetailsFromFile(filePath, "http://sams.nvv-online.de/");
 		assertNotNull("No location", location);
 	}

@@ -43,58 +43,65 @@
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC71si7EErdcCtMciV6fmHHcuZYXacSRqs&amp;sensor=false"
 	type="text/javascript"></script>
-<link rel="stylesheet" type="text/css"
-	href="css/sams.css?e353c85debfae8480a7f3dcac4dd108377beab49" />
-<link rel="stylesheet" type="text/css"
-	href="css/ma.css?e353c85debfae8480a7f3dcac4dd108377beab49" />
+<link rel="stylesheet" type="text/css" href="css/sams.css" />
+<link rel="stylesheet" type="text/css" href="css/ma.css" />
+<link rel="stylesheet" type="text/css" href="css/popup.css" />
 <!--[if IE]>
-        <link rel="stylesheet" type="text/css" href="css/sams_iefixes.css" />
-              <link rel="stylesheet" type="text/css" href="css/ma_iefixes.css" />
-            <![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/sams_iefixes.css" />
+	      <link rel="stylesheet" type="text/css" href="css/ma_iefixes.css" />
+	    <![endif]-->
 <title>Grundschule Wilstedt</title>
 <link rel="shortcut icon" href="images/favicon.ico" />
 <?xml version="1.0" encoding="UTF-8"?>
-
-
-<script type="text/javascript" src="js/sams.js"></script>
-<form id="keepAlivePollForm" name="keepAlivePollForm" method="post"
-	action="/popup/location/locationDetails.xhtml">
-	<span style="display: none;" id="keepAlivePollForm:j_id13"><script
-			type="text/javascript">
-		A4J.AJAX.Poll('keepAlivePollForm', {
-			'pollId' : 'keepAlivePollForm:j_id13',
-			'similarityGroupingId' : 'keepAlivePollForm:j_id13',
-			'parameters' : {
-				'keepAlivePollForm:j_id13' : 'keepAlivePollForm:j_id13',
-				'ajaxSingle' : 'keepAlivePollForm:j_id13'
-			},
-			'pollinterval' : 1190000,
-			'eventsQueue' : 'keepAlivePollQueue',
-			'containerId' : 'j_id12',
-			'actionUrl' : '/popup/location/locationDetails.xhtml'
-		});
-	</script></span><input type="hidden" autocomplete="off" name="keepAlivePollForm"
-		value="keepAlivePollForm" /><input type="hidden" autocomplete="off"
-		name="autoScroll" value="" /><input type="hidden" autocomplete="off"
-		name="keepAlivePollForm:j_idcl" value="" /><input type="hidden"
-		autocomplete="off" name="keepAlivePollForm:_link_hidden_" value="" />
+<form id="samsJsPixelRatioForm" name="samsJsPixelRatioForm"
+	method="post" action="/locationDetails.xhtml">
+	<script id="samsJsPixelRatioForm:j_id7" type="text/javascript">
+		//<![CDATA[
+		updatePixelRatio = function(param1) {
+			A4J.AJAX.Submit('samsJsPixelRatioForm', null, {
+				'similarityGroupingId' : 'samsJsPixelRatioForm:j_id7',
+				'parameters' : {
+					'param1' : param1,
+					'samsJsPixelRatioForm:j_id7' : 'samsJsPixelRatioForm:j_id7'
+				},
+				'actionUrl' : '/locationDetails.xhtml'
+			})
+		};
+		//]]>
+	</script>
+	<input type="hidden" autocomplete="off" name="samsJsPixelRatioForm"
+		value="samsJsPixelRatioForm" /><input type="hidden"
+		autocomplete="off" name="autoScroll" value="" /><input type="hidden"
+		autocomplete="off" name="samsJsPixelRatioForm:_link_hidden_" value="" /><input
+		type="hidden" autocomplete="off" name="samsJsPixelRatioForm:j_idcl"
+		value="" />
 	<script type="text/javascript">
-		function clear_keepAlivePollForm() {
-			_clearJSFFormParameters('keepAlivePollForm', '', [
-					'keepAlivePollForm:j_idcl',
-					'keepAlivePollForm:_link_hidden_' ]);
+		function clear_samsJsPixelRatioForm() {
+			_clearJSFFormParameters('samsJsPixelRatioForm', '', [
+					'samsJsPixelRatioForm:_link_hidden_',
+					'samsJsPixelRatioForm:j_idcl' ]);
 		}
-		function clearFormHiddenParams_keepAlivePollForm() {
-			clear_keepAlivePollForm();
+		function clearFormHiddenParams_samsJsPixelRatioForm() {
+			clear_samsJsPixelRatioForm();
 		}
-		function clearFormHiddenParams_keepAlivePollForm() {
-			clear_keepAlivePollForm();
+		function clearFormHiddenParams_samsJsPixelRatioForm() {
+			clear_samsJsPixelRatioForm();
 		}
-		clear_keepAlivePollForm();
+		clear_samsJsPixelRatioForm();
 	</script>
 	<input type="hidden" name="javax.faces.ViewState"
-		id="javax.faces.ViewState" value="j_id12" autocomplete="off" />
+		id="javax.faces.ViewState" value="j_id6" autocomplete="off" />
 </form>
+
+<script type="text/javascript" src="js/sams.js"></script>
+<script type="text/javascript" src="js/popupwindow.js"></script>
+<script type="text/javascript"
+	src="/SamsNvv/seam/resource/remoting/resource/remote.js"></script>
+<script type="text/javascript"
+	src="/SamsNvv/seam/resource/remoting/interface.js?httpSessionChecker"></script>
+
+<!-- TODO: Remove this when https://issues.jboss.org/browse/RF-9485 is fixed -->
+<script type="text/javascript" src="js/AJAX-Richfaces-3.3.3-fix.js"></script>
 
 <script type="text/javascript">
 	//<![CDATA[
@@ -102,16 +109,50 @@
 	var messages = new Object();
 	messages.defaultConfirm = "Sind Sie sicher?";
 	messages.route_finder = "Routenplaner";
+
+	// initialize client dpi setting 
+	var dpr = 1.0;
+	if (dpr === null) {
+		// forward setting to identity
+		updatePixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
+	}
+
 	//]]>
+
+	// Poll the server every sessionTimout / 3 seconds to avoid the session timing out while the browser window is open.
+	// ###################### Seam Remoting #################################
+	Seam.Remoting.displayLoadingMessage = function() {
+	};
+	Seam.Remoting.hideLoadingMessage = function() {
+	};
+
+	// ###################### Session timeout alert #################################
+	var sessionChecker = Seam.Component.getInstance("httpSessionChecker");
+	var timeoutMillis = 1800 * 1000 / 3;
+	var sessionTimeoutInterval = null;
+
+	function initSessionTimeout() {
+		sessionTimeoutInterval = setInterval('sessionChecker.keepAlive()',
+				timeoutMillis);
+	}
+
+	function stopSessionTimeoutCheck() {
+		if (sessionTimeoutInterval)
+			clearInterval(sessionTimeoutInterval);
+	}
+
+	function sessionCheckerCallBack() {
+
+	}
 </script>
 </head>
 
-<body id="samsPopupBody">
+<body>
 
 	<table class="popupHeader">
 		<tr>
 			<td>
-				<h1>Niedersächsischer Volleyball-Verband e.V.</h1>
+				<h1>Niedersächsischer Volleyball-Verband</h1>
 			</td>
 			<td>
 				<h2>Grundschule Wilstedt</h2>
@@ -120,7 +161,7 @@
 	</table>
 	<div class="popupContentContainer">
 		<span id="_viewRoot:status"><span id="_viewRoot:status.start"
-			style="display: none"><div id="j_id21"
+			style="display: none"><div id="j_id17"
 					style="position: fixed; top: 50%; left: 50%; z-index: 10000; border: 3px solid black;">
 					<img src="/images/ajax-loader-large.gif" />
 				</div></span><span id="_viewRoot:status.stop"></span></span>
@@ -129,7 +170,7 @@
 		<div class="content">
 
 			<!-- messages as insert to make them removable -->
-			<span id="globalErrorPanel"></span>
+			<span id="j_id20"></span>
 
 			<!-- content -->
 
@@ -141,8 +182,8 @@
 							<div class="samsContentBoxContent">
 								<h1>Grundschule Wilstedt</h1>
 								<p>
-								<p style="white-space: pre-wrap;">Schulstraße 11 27412
-									Wilstedt</p>
+								<p style="white-space: pre-wrap;">Schulstraße 11
+								27412 Wilstedt</p>
 								</p>
 								<div style="clear: both; height: 1px;"></div>
 							</div>
@@ -151,39 +192,42 @@
 							<div class="samsContentBoxHeader">Anmerkungen</div>
 							<div class="samsContentBoxContent">
 								<p>
-									Trib&#252;ne: nein <br />LxBxH (m): 27,00x18,00x6,50
+								<p class="seamTextPara">Tribüne: nein LxBxH (m):
+									27,00x18,00x6,50</p>
+
 								</p>
 								<div style="clear: both; height: 1px;"></div>
 							</div>
 						</div>
 						<div class="samsContentBox " style="">
-							<div class="samsContentBoxHeader">Volleyballfelder</div>
+							<div class="samsContentBoxHeader">Sportflächen</div>
 							<div class="samsContentBoxContent">
 								<p></p>
-								<span id="sportsPlaceTable_panel" class="rbDataTableWrapper"><table
-										class="rich-table rbDataTable samsDataTable "
-										id="sportsPlaceTable" style="width: 100%;" border="0"
-										cellpadding="0" cellspacing="5">
+
+								<div style="display: inline-block;" class="rbDataTableWrapper">
+									<table class="rich-table rbDataTable" id="sportsPlaceTable"
+										style="" border="0" cellpadding="0" cellspacing="5">
 										<colgroup span="2"></colgroup>
 										<thead class="rich-table-thead">
 											<tr class="rich-table-subheader ">
 												<th class="rich-table-subheadercell  " scope="col"
-													id="sportsPlaceTable:j_id115header"><div
-														id="sportsPlaceTable:j_id115header:sortDiv">Sportfläche</div></th>
+													id="sportsPlaceTable:j_id66header"><div
+														id="sportsPlaceTable:j_id66header:sortDiv">Name</div></th>
 												<th class="rich-table-subheadercell  " scope="col"
-													id="sportsPlaceTable:j_id118header"><div
-														id="sportsPlaceTable:j_id118header:sortDiv">Besucherplätze</div></th>
+													id="sportsPlaceTable:j_id69header"><div
+														id="sportsPlaceTable:j_id69header:sortDiv">Besucherplätze</div></th>
 											</tr>
 										</thead>
 										<tbody id="sportsPlaceTable:tb">
-											<tr class="rich-table-row rich-table-firstrow "
+											<tr
+												class="rich-table-row rich-table-firstrow alternatingRow0"
 												onclick="clickRichRow(this);"
 												onmouseover="mouseOverRichRow(this);"
 												onmouseout="mouseOutRichRow(this);">
-												<td class="rich-table-cell textualTableCell "
-													id="sportsPlaceTable:0:j_id115">Zentralfeld</td>
-												<td class="rich-table-cell textualTableCell "
-													id="sportsPlaceTable:0:j_id118">
+												<td class="rich-table-cell textualTableCell"
+													id="sportsPlaceTable:0:j_id66">Zentralfeld</td>
+												<td class="rich-table-cell textualTableCell"
+													id="sportsPlaceTable:0:j_id69">
 													<table>
 														<tr>
 															<td>Tribünen-Sitzplätze</td>
@@ -209,18 +253,19 @@
 												</td>
 											</tr>
 										</tbody>
-									</table></span>
+									</table>
+
+								</div>
 								<div style="clear: both; height: 1px;"></div>
 							</div>
 						</div>
-
 					</td>
 					<td>
 						<div class="samsContentBox " style="">
 							<div class="samsContentBoxHeader">Karte</div>
 							<div class="samsContentBoxContent">
 								<script language="javascript">
-									//<![CDATA[
+									//<![CDATA[                            
 									// Init map
 									function showRoute() {
 										var dest_url = "https://maps.google.de/maps?daddr=Schulstraße 11, 27412 Wilstedt, Germany";
@@ -285,10 +330,6 @@
 					</td>
 				</tr>
 			</table>
-			<p>
-				<button class="historyBackButton" onclick="history.back();">zurück</button>
-				<button onclick="window.close();">schließen</button>
-			</p>
 		</div>
 	</div>
 
@@ -300,9 +341,9 @@
 			for ( var i = 0; i !== links.length; i++) {
 				var l = links[i];
 				if (l.href.indexOf("?") > -1) {
-					l.href = l.href + "&layout=popup";
+					l.href = l.href + "&contentOnly=true";
 				} else {
-					l.href = l.href + "?layout=popup";
+					l.href = l.href + "?contentOnly=true";
 				}
 			}
 		}
