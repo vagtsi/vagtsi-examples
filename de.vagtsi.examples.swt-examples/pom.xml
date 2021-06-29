@@ -72,6 +72,37 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		
+		<profile>
+			<id>MacOS x64</id>
+			<activation>
+				<os>
+					<family>mac</family>
+					<arch>x86_64</arch>
+				</os>
+			</activation>
+			<properties>
+				<osgi.platform>cocoa.macosx.x86_64</osgi.platform>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.eclipse.platform</groupId>
+					<artifactId>org.eclipse.swt.cocoa.macosx.x86_64</artifactId>
+					<version>${swt.version}</version>
+					<exclusions>
+						<exclusion>
+							<groupId>org.eclipse.platform</groupId>
+							<artifactId>org.eclipse.swt.gtk.linux.aarch64</artifactId>
+						</exclusion>
+						<exclusion>
+							<groupId>org.eclipse.platform</groupId>
+							<artifactId>org.eclipse.swt.gtk.linux.arm</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+		</profile>
+		
 		<profile>
 			<id>Linux x64 GTK</id>
 			<activation>
