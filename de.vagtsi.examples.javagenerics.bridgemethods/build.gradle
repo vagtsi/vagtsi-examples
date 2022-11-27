@@ -1,0 +1,26 @@
+plugins {
+    id 'application'
+	id 'java-library'
+	id 'eclipse'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+
+	implementation 'javax.inject:javax.inject:1'
+}
+
+tasks.named('test') {
+	// Use JUnit Platform for unit tests.
+	useJUnitPlatform()
+}
+
+application {
+    mainClass = 'de.vagtsi.examples.javagenerics.bridgemethods.BridgeMethods' 
+}
